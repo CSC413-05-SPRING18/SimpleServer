@@ -22,6 +22,12 @@ public class UserProcessor extends Processor {
     }else{
       // some args, hopefully userid or username
       String[] argParts = this.args.split("=");
+      String argName = argParts[0];
+      int userid = Integer.parseInt(argParts[1]);
+      User user = User.getUserByUserId(userid);
+      // if no user maybe set status to error
+      responseBuilder.setStatus("OK");
+      responseBuilder.setData(user);
     }
 
     Gson gson = new Gson();
