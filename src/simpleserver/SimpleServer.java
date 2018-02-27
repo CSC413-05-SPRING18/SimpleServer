@@ -1,5 +1,6 @@
 package simpleserver;
 
+import Processor.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,6 +12,7 @@ class SimpleServer {
     ServerSocket ding;
     Socket dong = null;
     String resource = null;
+    String mainRequestLine = null;
     try {
       ding = new ServerSocket(1299);
       System.out.println("Opened socket " + 1299);
@@ -32,6 +34,8 @@ class SimpleServer {
           String line = in.readLine();
           System.out.println("----------REQUEST START---------");
           System.out.println(line);
+          mainRequestLine = line;
+
           // read only headers
           line = in.readLine();
           while (line != null && line.trim().length() > 0) {
@@ -59,9 +63,13 @@ class SimpleServer {
         writer.println("Content-type: application/json");
         writer.println("");
 
+        // Do our work here
+        String lineParts[] = mainRequestLine.split(" ");
+        String resourceString = lineParts[1];
 
+        Processor processor = ProcessorFactory.getProcessor(resourceString);
         // Body of our response
-        writer.println("{\"hello\" : \"world\"}");
+        writer.println(processor.process());
 
         dong.close();
       }
