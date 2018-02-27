@@ -2,9 +2,12 @@ package Processor;
 
 public class UserProcessor extends Processor {
 
+  public UserProcessor(String args) {
+    super(args);
+  }
 
   @Override
   public String process() {
-    return "{\"User\": 0}";
+    return "{\"User\": " + this.args + "}";
   }
 }
