@@ -7,6 +7,7 @@ public class User implements IData {
 
   private static Map<Integer, User> userById = new HashMap<>();
   private static Map<String, User> userByUserName = new HashMap<>();
+  private static User[] allUsers;
 
   private String username;
   private int userid;
@@ -24,5 +25,13 @@ public class User implements IData {
 
   public static User getUserbyUserName(String username){
     return User.userByUserName.get(username);
+  }
+
+  public static void setAll(User[] allUsers){
+    User.allUsers = allUsers;
+  }
+
+  public static User[] getAll(){
+   return allUsers;
   }
 }

@@ -34,6 +34,7 @@ class SimpleServer {
       for(int i = 0; i < users.length; i ++){
         users[i].register();
       }
+      User.setAll(users);
 
     } catch (FileNotFoundException e) {
       System.exit(1);
